@@ -1,18 +1,10 @@
-﻿var sparkasse = new Bank();
-sparkasse.name = "Sparkasse";
-sparkasse.accounts = new();
-sparkasse.clients = new();
+﻿var sparkasse = new Bank("Sparkasse");
 
-var postbank = new Bank();
+var postbank = new Bank("Postbank");
 
-var account_1 = new Account(); 
-account_1.balance = 0;
-account_1.num = "1001 4646 4461 1564 45";
+var account_1 = new Account("1001 4646 4461 1564 45"); 
 
-var klaus = new Client();
-klaus.name = "Klaus";
-klaus.nachname = "Möritz";
-klaus.accounts = new();
+var klaus = new Client("Klaus", "Möritz");
 
 klaus.accounts.Add(account_1);
 sparkasse.accounts.Add(account_1);
