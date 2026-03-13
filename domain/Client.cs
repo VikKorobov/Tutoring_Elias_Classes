@@ -10,4 +10,11 @@ public class Client
         this.lastName = lastName;
         this.accounts = new();
     }
+
+    public Client(string firstName, string lastName, List<Account> accounts)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.accounts = accounts;
+    }
 }

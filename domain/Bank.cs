@@ -10,4 +10,11 @@ public class Bank
         this.accounts = new();
         this.clients = new();
     }
+
+    public Bank(string name, List<Account> accounts, List<Client> clients)
+    {
+        this.name = name;
+        this.accounts = accounts;
+        this.clients = clients;
+    }
 }
