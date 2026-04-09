@@ -1,79 +1,51 @@
 internal class Bank
 {
-    private string name;
-    private List<Account> accounts;
-    private List<Client> clients;
+    private string _name;
+    private List<Account> _accounts;
+    private List<Client> _clients;
+
+    public string Name { get => styleName(_name); }
+    public List<Account> Accounts { get => _accounts; }
+    public List<Client> Clients { get => _clients; }
     
     public Bank(string name)
     {
-        this.name = name.Trim().ToLower();
-        this.accounts = new();
-        this.clients = new();
+        _name = name.Trim().ToLower();
+        _accounts = new();
+        _clients = new();
     }
 
     public Bank(string name, List<Account> accounts, List<Client> clients)
     {
-        this.name = name.Trim().ToLower();
-        this.accounts = accounts;
-        this.clients = clients;
+        _name = name.Trim().ToLower();
+        _accounts = accounts;
+        _clients = clients;
+    }
+
+    private static string styleName(string name)
+    {
+        var textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
+
+        return textInfo.ToTitleCase(name);
     }
 
     public void AddAccount(Account account)
     {
-        this.accounts.Add(account);
+        _accounts.Add(account);
     }
 
     public void AddClient(Client client)
     {
-        this.clients.Add(client);
+        _clients.Add(client);
     }
 
     public void RemoveAccount(Account account)
     {
-        this.accounts.Remove(account);
+        _accounts.Remove(account);
     }
 
     public void RemoveClient(Client client)
     {
-        this.clients.Remove(client);
+        _clients.Remove(client);
     }
-
-    public string GetName()
-    {
-        var textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
-
-        return textInfo.ToTitleCase(this.name);
-    }
-
-    // removed setter for name,
-    // because it should not be possible to change the name of the bank
-    // public void SetName(string name)
-    // {
-    //     this.name = name;
-    // }
-
-    public List<Account> GetAccounts()
-    {
-        return this.accounts;
-    }
-
-    // removed setter for accounts,
-    // because it should not be possible to set the accounts directly
-    // public void SetAccounts(List<Account> accounts)
-    // {
-    //     this.accounts = accounts;
-    // }
-
-    public List<Client> GetClients()
-    {
-        
-        return this.clients;
-    }
-
-    // removed setter for clients,
-    // because it should not be possible to set the clients directly
-    // public void SetClients(List<Client> clients)
-    // {
-    //     this.clients = clients;
-    // }
 }
