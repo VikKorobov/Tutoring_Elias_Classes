@@ -6,37 +6,63 @@ internal class Bank
     
     public Bank(string name)
     {
-        this.name = name;
+        this.name = name.Trim().ToLower();
         this.accounts = new();
         this.clients = new();
     }
 
     public Bank(string name, List<Account> accounts, List<Client> clients)
     {
-        this.name = name;
+        this.name = name.Trim().ToLower();
         this.accounts = accounts;
         this.clients = clients;
     }
 
-    public string GetName()
+    public void AddAccount(Account account)
     {
-        return this.name;
+        this.accounts.Add(account);
     }
 
-    public void SetName(string name)
+    public void AddClient(Client client)
     {
-        this.name = name;
+        this.clients.Add(client);
     }
+
+    public void RemoveAccount(Account account)
+    {
+        this.accounts.Remove(account);
+    }
+
+    public void RemoveClient(Client client)
+    {
+        this.clients.Remove(client);
+    }
+
+    public string GetName()
+    {
+        var textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
+
+        return textInfo.ToTitleCase(this.name);
+    }
+
+    // removed setter for name,
+    // because it should not be possible to change the name of the bank
+    // public void SetName(string name)
+    // {
+    //     this.name = name;
+    // }
 
     public List<Account> GetAccounts()
     {
         return this.accounts;
     }
 
-    public void SetAccounts(List<Account> accounts)
-    {
-        this.accounts = accounts;
-    }
+    // removed setter for accounts,
+    // because it should not be possible to set the accounts directly
+    // public void SetAccounts(List<Account> accounts)
+    // {
+    //     this.accounts = accounts;
+    // }
 
     public List<Client> GetClients()
     {
@@ -44,8 +70,10 @@ internal class Bank
         return this.clients;
     }
 
-    public void SetClients(List<Client> clients)
-    {
-        this.clients = clients;
-    }
+    // removed setter for clients,
+    // because it should not be possible to set the clients directly
+    // public void SetClients(List<Client> clients)
+    // {
+    //     this.clients = clients;
+    // }
 }
