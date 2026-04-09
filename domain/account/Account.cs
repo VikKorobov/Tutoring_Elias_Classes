@@ -1,18 +1,18 @@
 internal class Account
 {
-    private double _balance;
-    private string _num;
+    protected double _balance;
+    protected string _num;
 
     public double Balance{get => _balance;}
     public string Num{get => _num.ToUpper();}
 
-    private Account(string num)
+    protected Account(string num)
     {
         _num = num;
         _balance = 0;
     }
     
-    private Account(string num, double balance)
+    protected Account(string num, double balance)
     {
         _num = num;
         _balance = balance;
@@ -40,12 +40,12 @@ internal class Account
         return new(sanitizeNum(num), balance);
     }
    
-    public void Deposit(double amount)
+    public virtual void Deposit(double amount)
     {
         _balance += amount;
     }
 
-    public void Withdraw(double amount)
+    public virtual void Withdraw(double amount)
     {
         if (_balance >= amount) _balance -= amount;
         else throw new Exception("Not enough balance");
