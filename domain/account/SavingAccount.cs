@@ -21,7 +21,7 @@ internal class SavingAccount : Account
 
     private static double sanitizeInterestRate(double interestRate)
     {
-        if (interestRate > 0 && interestRate < 1) throw new Exception("Interest rate must be a positive value between 0 and 1");
+        if (interestRate < 0 || interestRate > 1) throw new Exception("Interest rate must be a positive value between 0 and 1");
 
         return interestRate;
     }
