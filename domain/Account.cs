@@ -1,7 +1,7 @@
-public class Account
+internal class Account
 {
-    public double balance;
-    public string num;
+    private double balance;
+    private string num;
 
     public Account(string num)
     {
@@ -14,5 +14,25 @@ public class Account
         
         this.num = num;
         this.balance = balance;
+    }
+
+    public double GetBalance()
+    {
+        return this.balance;
+    }
+
+    public void SetBalance(double balance)
+    {
+        this.balance = balance;
+    }
+
+    public string GetNum()
+    {
+        return this.num;
+    }
+
+    public void SetNum(string num)
+    {
+        this.num = num;
     }
 }

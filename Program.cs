@@ -7,18 +7,18 @@ var account_2 = new Account("4546 0000 0000 4567 97", 1000);
 
 var klaus = new Client("Klaus", "Möritz");
 
-klaus.accounts.Add(account_1);
-sparkasse.accounts.Add(account_1);
-sparkasse.clients.Add(klaus);
+klaus.GetAccounts().Add(account_1);
+sparkasse.GetAccounts().Add(account_1);
+sparkasse.GetClients().Add(klaus);
 
-var claudia = new Client("Claudia", "Möritz", klaus.accounts);
+var claudia = new Client("Claudia", "Möritz", klaus.GetAccounts());
 
-account_1.balance += 100;
-klaus.accounts[0].balance += 100;
-claudia.accounts[0].balance += 100;
-Console.WriteLine(klaus.accounts[0].balance);
-Console.WriteLine(claudia.accounts[0].balance);
-Console.WriteLine(sparkasse.accounts[0].balance);
-Console.WriteLine(sparkasse.clients[0].accounts[0].balance);
+account_1.SetBalance(account_1.GetBalance() + 100);
+klaus.GetAccounts()[0].SetBalance(klaus.GetAccounts()[0].GetBalance() + 100);
+claudia.GetAccounts()[0].SetBalance(claudia.GetAccounts()[0].GetBalance() + 100);
+Console.WriteLine(klaus.GetAccounts()[0].GetBalance());
+Console.WriteLine(claudia.GetAccounts()[0].GetBalance());
+Console.WriteLine(sparkasse.GetAccounts()[0].GetBalance());
+Console.WriteLine(sparkasse.GetClients()[0].GetAccounts()[0].GetBalance());
 
 
