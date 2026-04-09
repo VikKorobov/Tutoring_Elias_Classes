@@ -8,16 +8,16 @@ internal class Bank
     public List<Account> Accounts { get => _accounts; }
     public List<Client> Clients { get => _clients; }
     
-    public Bank(string name)
+    private Bank(string name)
     {
-        _name = name.Trim().ToLower();
+        _name = name;
         _accounts = new();
         _clients = new();
     }
 
-    public Bank(string name, List<Account> accounts, List<Client> clients)
+    private Bank(string name, List<Account> accounts, List<Client> clients)
     {
-        _name = name.Trim().ToLower();
+        _name = name;
         _accounts = accounts;
         _clients = clients;
     }
@@ -27,6 +27,25 @@ internal class Bank
         var textInfo = new System.Globalization.CultureInfo("en-US", false).TextInfo;
 
         return textInfo.ToTitleCase(name);
+    }
+
+    private static string sanitizeName(string name)
+    {
+        name = name.Trim();
+
+        if (name.Length < 2) throw new Exception("Name must be at least 2 characters long");
+
+        return name.ToLower();
+    }
+
+    public static Bank Create(string name)
+    {
+        return new(sanitizeName(name));
+    }
+
+    public static Bank Create(string name, List<Account> accounts, List<Client> clients)
+    {
+        return new(sanitizeName(name), accounts, clients);
     }
 
     public void AddAccount(Account account)

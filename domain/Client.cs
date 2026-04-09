@@ -18,17 +18,17 @@ internal class Client
 
     public List<Account> Accounts { get => _accounts; }
 
-    public Client(string firstName, string lastName)
+    private Client(string firstName, string lastName)
     {
-        _firstName = firstName.Trim().ToLower();
-        _lastName = lastName.Trim().ToLower();
+        _firstName = firstName;
+        _lastName = lastName;
         _accounts = new();
     }
 
-    public Client(string firstName, string lastName, List<Account> accounts)
+    private Client(string firstName, string lastName, List<Account> accounts)
     {
-        _firstName = firstName.Trim().ToLower();
-        _lastName = lastName.Trim().ToLower();
+        _firstName = firstName;
+        _lastName = lastName;
         _accounts = accounts;
     }
 
@@ -48,6 +48,16 @@ internal class Client
         if (name.Any(char.IsDigit)) throw new Exception("Name must not contain numbers");
 
         return name.ToLower();
+    }
+
+    public static Client Create(string firstName, string lastName)
+    {
+        return new(sanitizeName(firstName), sanitizeName(lastName));
+    }
+
+    public static Client Create(string firstName, string lastName, List<Account> accounts)
+    {
+        return new(sanitizeName(firstName), sanitizeName(lastName), accounts);
     }
 
     public void AddAccount(Account account)
