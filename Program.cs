@@ -2,8 +2,8 @@
 
 var postbank = Bank.Create("Postbank");
 
-var account_1 = Account.Create("1001 4646 4461 1564 45"); 
-var account_2 = Account.Create("4546 0000 0000 4567 97", 1000);
+var account_1 = Account.Create("1001 46464461 1564"); 
+var account_2 = Account.Create("4546 00000000 4567", 1000);
 
 var klaus = Client.Create("    kLaUs Günter  ", "Möritz");
 
