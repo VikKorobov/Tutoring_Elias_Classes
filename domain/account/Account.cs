@@ -1,4 +1,4 @@
-internal class Account
+internal abstract class Account
 {
     protected double _balance;
     protected string _num;
@@ -18,27 +18,20 @@ internal class Account
         _balance = balance;
     }
 
-    private static string sanitizeNum(string num)
-    {
-        num = num.Trim();
+    // We can not use the static factory method in the abstract class, 
+    // because we need to return an instance of a concrete class.
+    // public static Account Create(string num)
+    // {
+    //     return new(sanitizeNum(num));
+    // }
 
-        if (num.Length != 18) throw new Exception("Account number must be 18 characters long");
+    // We can not use the static factory method in the abstract class, 
+    // because we need to return an instance of a concrete class.
+    // public static Account Create(string num, double balance)
+    // {
 
-        if (!num.All(c => char.IsDigit(c) || char.IsWhiteSpace(c))) throw new Exception("Account number must only contain digits and spaces");
-
-        return num;
-    }
-
-    public static Account Create(string num)
-    {
-        return new(sanitizeNum(num));
-    }
-
-    public static Account Create(string num, double balance)
-    {
-
-        return new(sanitizeNum(num), balance);
-    }
+    //     return new(sanitizeNum(num), balance);
+    // }
    
     public virtual void Deposit(double amount)
     {
@@ -51,4 +44,5 @@ internal class Account
         else throw new Exception("Not enough balance");
     }
 
+    public abstract void Transfer(Account target, double amount);
 }

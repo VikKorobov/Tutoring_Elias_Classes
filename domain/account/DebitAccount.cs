@@ -19,6 +19,17 @@ internal class DebitAccount : Account
         _overdraftLimit = overdraftLimit;
     }
 
+    protected static string sanitizeNum(string num)
+    {
+        num = num.Trim();
+
+        if (num.Length != 18) throw new Exception("Account number must be 18 characters long");
+
+        if (!num.All(c => char.IsDigit(c) || char.IsWhiteSpace(c))) throw new Exception("Account number must only contain digits and spaces");
+
+        return num;
+    }
+
     private static double sanitizeOverdraftLimit(double overdraftLimit)
     {
         if (overdraftLimit < 0) throw new Exception("Overdraft limit must be non-negative");
@@ -26,19 +37,19 @@ internal class DebitAccount : Account
         return overdraftLimit;
     }
 
-    public static new DebitAccount Create(string number)
+    public static DebitAccount Create(string number)
     {
-        return new(number);
+        return new(sanitizeNum(number));
     }
 
-    public static new DebitAccount Create(string number, double overdraftLimit)
+    public static DebitAccount Create(string number, double overdraftLimit)
     {
-        return new(number, sanitizeOverdraftLimit(overdraftLimit));
+        return new(sanitizeNum(number), sanitizeOverdraftLimit(overdraftLimit));
     }
 
     public static DebitAccount Create(string number, double overdraftLimit, double balance)
     {
-        return new(number, sanitizeOverdraftLimit(overdraftLimit), balance);
+        return new(sanitizeNum(number), sanitizeOverdraftLimit(overdraftLimit), balance);
     }
 
     public override void Withdraw(double amount)
@@ -46,5 +57,23 @@ internal class DebitAccount : Account
         if (_balance + _overdraftLimit < amount) throw new Exception("Not enough balance and overdraft limit");
         
         _balance -= amount;
+    }
+
+    public override void Transfer(Account target, double amount)
+    {
+        if (_balance < amount) throw new Exception("Not enough balance");
+        
+            _balance -= amount;
+
+        try{
+
+            target.Deposit(amount);
+        }
+        catch (Exception){
+
+            _balance += amount;
+            throw new Exception("Transfer failed");
+        }     
+        
     }
 }
