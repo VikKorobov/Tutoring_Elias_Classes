@@ -1,21 +1,21 @@
-internal class SavingAccount : Account
+internal class SavingAccount : ISavingAccount
 {
     private double _interestRate;
 
+    private double _balance;
+
+    private string _num;
+
     public double InterestRate { get => _interestRate; set => _interestRate = sanitizeInterestRate(value); }
 
-    private SavingAccount(string number) : base(number)
-    {
-        _interestRate = 0;
-    }
+    public double Balance {get => _balance;}
 
-    private SavingAccount(string number, double interestRate) : base(number)
-    {
-        _interestRate = interestRate;
-    }
+    public string Num{get => _num;}
 
-    private SavingAccount(string number, double interestRate, double balance) : base(number, balance)
+    private SavingAccount(string num, double interestRate = 0, double balance = 0)
     {
+        _num = num;
+        _balance = balance;
         _interestRate = interestRate;
     }
 
@@ -65,7 +65,7 @@ internal class SavingAccount : Account
         }
     }
 
-    public override void Transfer(Account target, double amount)
+    public void Transfer(IAccount target, double amount)
     {
         if (_balance < amount) throw new Exception("Not enough balance");
         
@@ -80,5 +80,17 @@ internal class SavingAccount : Account
             _balance += amount;
             throw new Exception("Transfer failed");
         }     
+    }
+
+    public void Deposit(double amount)
+    {
+        _balance += amount;
+    }
+
+    public void Withdraw(double amount)
+    {
+        if(amount > _balance) throw new Exception("Amount can't exceed balance!");
+
+        _balance -= amount;
     }
 }

@@ -1,22 +1,21 @@
-internal class DebitAccount : Account
+internal class DebitAccount : IDebit
 {
     private double _overdraftLimit;
+    private double _balance;
+    private string _num;
 
     public double OverdraftLimit { get => _overdraftLimit; set => _overdraftLimit = sanitizeOverdraftLimit(value); }
 
-    private DebitAccount(string number) : base(number)
-    {
-        _overdraftLimit = 0;
-    }
+    public double Balance {get => _balance;}
 
-    private DebitAccount(string number, double overdraftLimit) : base(number)
-    {
-        _overdraftLimit = overdraftLimit;
-    }
+    public string Num {get => _num;}
 
-    private DebitAccount(string number, double overdraftLimit, double balance) : base(number, balance)
+
+    private DebitAccount(string num, double overdraftLimit = 0, double balance = 0)
     {
+        _num = num;
         _overdraftLimit = overdraftLimit;
+        _balance = balance;
     }
 
     protected static string sanitizeNum(string num)
@@ -52,14 +51,14 @@ internal class DebitAccount : Account
         return new(sanitizeNum(number), sanitizeOverdraftLimit(overdraftLimit), balance);
     }
 
-    public override void Withdraw(double amount)
+    public void Withdraw(double amount)
     {
         if (_balance + _overdraftLimit < amount) throw new Exception("Not enough balance and overdraft limit");
         
         _balance -= amount;
     }
 
-    public override void Transfer(Account target, double amount)
+    public void Transfer(IAccount target, double amount)
     {
         if (_balance < amount) throw new Exception("Not enough balance");
         
@@ -75,5 +74,10 @@ internal class DebitAccount : Account
             throw new Exception("Transfer failed");
         }     
         
+    }
+
+    public void Deposit(double amount)
+    {
+        _balance += amount;
     }
 }

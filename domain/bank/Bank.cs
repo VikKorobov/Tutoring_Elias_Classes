@@ -1,11 +1,11 @@
 internal class Bank
 {
     private string _name;
-    private List<Account> _accounts;
+    private List<IAccount> _accounts;
     private List<Client> _clients;
 
     public string Name { get => styleName(_name); }
-    public List<Account> Accounts { get => _accounts; }
+    public List<IAccount> Accounts { get => _accounts; }
     public List<Client> Clients { get => _clients; }
     
     private Bank(string name)
@@ -15,7 +15,7 @@ internal class Bank
         _clients = new();
     }
 
-    private Bank(string name, List<Account> accounts, List<Client> clients)
+    private Bank(string name, List<IAccount> accounts, List<Client> clients)
     {
         _name = name;
         _accounts = accounts;
@@ -43,12 +43,12 @@ internal class Bank
         return new(sanitizeName(name));
     }
 
-    public static Bank Create(string name, List<Account> accounts, List<Client> clients)
+    public static Bank Create(string name, List<IAccount> accounts, List<Client> clients)
     {
         return new(sanitizeName(name), accounts, clients);
     }
 
-    public void AddAccount(Account account)
+    public void AddAccount(IAccount account)
     {
         _accounts.Add(account);
     }
@@ -58,7 +58,7 @@ internal class Bank
         _clients.Add(client);
     }
 
-    public void RemoveAccount(Account account)
+    public void RemoveAccount(IAccount account)
     {
         _accounts.Remove(account);
     }

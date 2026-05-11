@@ -2,7 +2,7 @@ internal class Client
 {
     private string _firstName;
     private string _lastName;
-    private List<Account> _accounts;
+    private List<IAccount> _accounts;
 
     public string FirstName { 
 
@@ -16,7 +16,7 @@ internal class Client
         set => _lastName = sanitizeName(value); 
     }
 
-    public List<Account> Accounts { get => _accounts; }
+    public List<IAccount> Accounts { get => _accounts; }
 
     private Client(string firstName, string lastName)
     {
@@ -25,7 +25,7 @@ internal class Client
         _accounts = new();
     }
 
-    private Client(string firstName, string lastName, List<Account> accounts)
+    private Client(string firstName, string lastName, List<IAccount> accounts)
     {
         _firstName = firstName;
         _lastName = lastName;
@@ -55,17 +55,17 @@ internal class Client
         return new(sanitizeName(firstName), sanitizeName(lastName));
     }
 
-    public static Client Create(string firstName, string lastName, List<Account> accounts)
+    public static Client Create(string firstName, string lastName, List<IAccount> accounts)
     {
         return new(sanitizeName(firstName), sanitizeName(lastName), accounts);
     }
 
-    public void AddAccount(Account account)
+    public void AddAccount(IAccount account)
     {
         _accounts.Add(account);
     }
 
-    public void RemoveAccount(Account account)
+    public void RemoveAccount(IAccount account)
     {
         _accounts.Remove(account);
     }
